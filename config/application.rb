@@ -37,5 +37,12 @@ module Projects
         request_specs: false
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
+
+    if Rails.env.test? or Rails.env.cucumber?
+      CarrierWave.configure do |config|
+        config.storage = :file
+        config.enable_processing = false
+      end
+    end
   end
 end
